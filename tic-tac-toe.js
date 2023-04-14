@@ -65,11 +65,35 @@ function endGame(isTie) {
       oScore++;
       oScoreElement.textContent = oScore;
     }
+    const boxes = document.querySelectorAll(".box");
+    const winningCombos = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+
+    for (let i = 0; i < winningCombos.length; i++) {
+      const [a, b, c] = winningCombos[i];
+      if (boxes[a].classList.contains(currentPlayer)
+          && boxes[b].classList.contains(currentPlayer)
+          && boxes[c].classList.contains(currentPlayer)) {
+        boxes[a].classList.add("winning-box");
+        boxes[b].classList.add("winning-box");
+        boxes[c].classList.add("winning-box");
+        break;
+      }
+    }
   }
   document.querySelectorAll(".box").forEach(function (box) {
     box.removeEventListener("click", handleBoxClick);
   });
 }
+
 
 function resetGame() {
   currentPlayer = "X";
@@ -78,10 +102,12 @@ function resetGame() {
     box.textContent = "";
     box.classList.remove("X");
     box.classList.remove("O");
+    box.classList.remove("winning-box"); // added this line
     box.addEventListener("click", handleBoxClick, { once: true });
   });
   updateScores();
 }
+
 
 function updateScores() {
   xScoreElement.textContent = xScore;
