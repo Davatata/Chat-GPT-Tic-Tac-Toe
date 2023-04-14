@@ -55,3 +55,11 @@ h1 {
     transform: scale(1);
   }
 }
+
+.box.win {
+  background-color: #8bf596;
+}
+
+.winning-box {
+  background-color: #d1f7cf;
+}
